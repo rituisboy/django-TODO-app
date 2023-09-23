@@ -1,0 +1,45 @@
+<html>
+<head>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        .todo {
+            border: solid 1px black;
+            margin: 10px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>todo list</h1>
+    <div class="container">
+        <form action="{% url 'home' %}" method='POST'>
+            {% csrf_token %}
+            <input type="text" name="new_todo">
+            <input type="submit" value="add_todo">
+        </form>
+    </div>
+    
+    <ul>
+        <div class="container">
+        {% for todo in todos %}
+            <div class="todo">
+                <li>
+                    {{todo.todo}} | <a href="{% url 'delete' todo.id %}">🗑️</a> 
+                </li>
+            </div>
+        {% endfor %}
+        </div>
+    
+    </ul>
+    
+
+</body>
+</html>
