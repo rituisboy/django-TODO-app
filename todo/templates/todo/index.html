@@ -1,45 +1,108 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
     <style>
-        a {
-            text-decoration: none;
-        }
-        .todo {
-            border: solid 1px black;
-            margin: 10px;
-        }
-        .container {
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        form {
+            display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 12px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .todo {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+        }
+
+        .todo a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .todo a:hover {
+            color: #d9534f; /* Bootstrap red color */
         }
     </style>
 </head>
 <body>
-    <h1>todo list</h1>
+    <h1>Todo List</h1>
     <div class="container">
         <form action="{% url 'home' %}" method='POST'>
             {% csrf_token %}
-            <input type="text" name="new_todo">
-            <input type="submit" value="add_todo">
+            <input type="text" name="new_todo" placeholder="Add a new todo">
+            <input type="submit" value="Add Todo">
         </form>
     </div>
-    
+
     <ul>
         <div class="container">
-        {% for todo in todos %}
-            <div class="todo">
-                <li>
-                    {{todo.todo}} | <a href="{% url 'delete' todo.id %}">🗑️</a> 
-                </li>
-            </div>
-        {% endfor %}
+            {% for todo in todos %}
+                <div class="todo">
+                    <li>
+                        {{ todo.todo }} | <a href="{% url 'delete' todo.id %}">🗑️</a>
+                    </li>
+                </div>
+            {% endfor %}
         </div>
-    
     </ul>
-    
-
 </body>
 </html>
